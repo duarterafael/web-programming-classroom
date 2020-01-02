@@ -18,10 +18,9 @@ public class Customer {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
     
-	@Column(name = "CPF", length = 20, nullable = false, unique = true)
+	@Column(length = 20, nullable = false, unique = true)
 	private String CPF;
 
     @OneToMany(cascade = CascadeType.ALL,
