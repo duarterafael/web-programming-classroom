@@ -81,6 +81,13 @@ public class CustomerController {
 	public Customer create(@RequestBody Customer customer) {
 		return customerService.create(customer);
 	}
+	
+	/*
+	 * Para atualizar um registro, é necessário informar seu ID no caminho da URL (similar ao processo de obter um registro específico). 
+	 * Caso deseje usar um nome de variável diferente do que foi utilizado também pode utilizar o seguinte código @PathVariable("recordID") long id, 
+	 * desde que otherID também seja o nome em @PutMapping(value="/{otherID}"). 
+	 * Além do ID, também é necessário passar o objeto com os dados atualizados.
+	 */
 
 	@PutMapping(value="/{id}")
 	public ResponseEntity update(@PathVariable("id") long id, @RequestBody Customer customer) {

@@ -49,6 +49,12 @@ public class CustomerService {
 		return customerRepository.save(customer);
 	}
 	
+	/*
+	 * * Inicialmente é necessário encontrar o registro a ser atualizado que está na base de dados. 
+	 * Se o registro for encontrado, pode-se fazer as atualizações necessárias e assim chamar o método save e retornar os dados do registro atualizados. Note que o método save também foi utilizado na criação do registro. Caso o objeto tenha sido recuperado da base tenha um ID, será realizado um update e não um insert na tabela.
+	 
+	 */
+	
 	public Customer update(@PathVariable("id") long id, @RequestBody Customer customer) {
 		Optional<Customer> currentCustomer = customerRepository.findById(id);
 		if(currentCustomer.isPresent())
