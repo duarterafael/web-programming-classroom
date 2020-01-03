@@ -11,6 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/*
+ * A anotação @Entity pertence ao JPA e isso significa que a classe será automaticamente mapeada à tabela com o mesmo nome 
+ * (classe Account e tabela Account).
+ * Todos os atributos dessa classe também serão mapeados com as respectivas colunas. 
+ * Podemos omitir a anotação @Column para cada atributo da classe desde que o nome do atributo seja o mesmo nome da coluna. 
+ * Caso a coluna tenha o nome diferente do atributo precisamos especificar.
+ */
 @Entity
 public class Customer {
 
