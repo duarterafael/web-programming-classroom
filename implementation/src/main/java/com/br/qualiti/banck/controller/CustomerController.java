@@ -2,6 +2,7 @@ package com.br.qualiti.banck.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 /*
  * O Controller é a classe responsável por expor cada URI que estará disponível na API.
  * A anotação @RestController contém as anotações @Controller e @ResponseBody.  
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.br.qualiti.banck.exception.ResourceNotFoundException;
 import com.br.qualiti.banck.model.Customer;
-import com.br.qualiti.banck.repository.CustomerRepository;
 import com.br.qualiti.banck.service.CustomerService;
 
 import java.util.List;
@@ -99,6 +99,26 @@ public class CustomerController {
 		}
 	}
 	
-	//https://www.oracle.com/technetwork/pt/articles/dsl/crud-rest-sb2-hibernate-5302424-ptb.html
+	/*
+	 * Para remover um contato pelo ID, utiliza-se o id que foi passado como parâmetro.
+	 * Será chamado o método delete da classe service e por sia vez, utiliza-se o método deleteById da interface JpaRepository.
+	 * É importante salientar que o status HTTP 204 (no content) será retornado independente se tiver ou não registro na tabela.
+	 */
+	@DeleteMapping(path ={"/{id}"})
+	public ResponseEntity delete(@PathVariable long id) {
+			customerService.delete(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	/*
+	 * E a API RESTful CRUD está pronta! Um ponto importante é a anotação que foi utilizada em cada método que foi desenvolvido:
+	 * Listar todos os contatos - @GetMapping(“/api/v1/customers")
+	 * Obter um contato específico pelo ID - @GetMapping(“/api/v1/customers/{id}”)
+	 * Remover um contato pelo ID - @DeleteMapping(“/api/v1/customers/{id}”)
+	 * Criar um novo contato - @PostMapping(“/api/v1/customers)
+	 * Atualizar detalhes de um contato - @PutMapping(“/api/v1/customers/{id}”)
+	 * Apesar da URL ser a mesma (/api/v1/customers), o que garante os métodos HTTP diferentes 
+	 * são cada uma das anotações usadas em cada método.
+	 */
 
 }
