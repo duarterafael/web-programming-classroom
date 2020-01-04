@@ -8,7 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Account {
@@ -23,6 +24,7 @@ public class Account {
 	@Column(nullable = false)
 	private Double balance;
 
+	@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
