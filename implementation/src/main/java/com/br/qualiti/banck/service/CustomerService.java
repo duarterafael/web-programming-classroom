@@ -88,5 +88,10 @@ public class CustomerService {
 		}
 		
 	}
+	
+	public List findByName(String name) {
+		return customerRepository.findByNameContaining(name);
+	}
+
 
 }
