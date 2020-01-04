@@ -1,5 +1,6 @@
 package com.br.qualiti.banck.controller;
 
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -120,5 +121,11 @@ public class CustomerController {
 	 * Apesar da URL ser a mesma (/api/v1/customers), o que garante os métodos HTTP diferentes 
 	 * são cada uma das anotações usadas em cada método.
 	 */
+	
+	@GetMapping(value="/name/{name}")
+	public List findById(@PathVariable("name") String name) {
+		return customerService.findByName(name);
+	}
+
 
 }
