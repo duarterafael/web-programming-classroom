@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.qualiti.banck.dto.DepositDTO;
+import com.br.qualiti.banck.dto.WithdrawDTO;
 import com.br.qualiti.banck.exception.ResourceNotFoundException;
 import com.br.qualiti.banck.model.Account;
 import com.br.qualiti.banck.service.OperationService;
@@ -25,6 +26,16 @@ public class OperationController {
 	public ResponseEntity deposit(@RequestBody DepositDTO depositDTO) {
 		try {
 			Account account = operationService.deposit(depositDTO);
+			return ResponseEntity.ok().body(account);
+		}catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@PostMapping(value="/withdraw")
+	public ResponseEntity withdraw(@RequestBody WithdrawDTO withdrawDTO) {
+		try {
+			Account account = operationService.withdraw(withdrawDTO);
 			return ResponseEntity.ok().body(account);
 		}catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();

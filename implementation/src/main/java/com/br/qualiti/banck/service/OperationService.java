@@ -4,7 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.br.qualiti.banck.dto.AbstractOperationDTO;
 import com.br.qualiti.banck.dto.DepositDTO;
+import com.br.qualiti.banck.dto.WithdrawDTO;
 import com.br.qualiti.banck.exception.ResourceNotFoundException;
 import com.br.qualiti.banck.model.Account;
 import com.br.qualiti.banck.model.Customer;
@@ -13,6 +15,13 @@ import com.br.qualiti.banck.repository.CustomerRepository;
 
 @Service
 public class OperationService {
+	
+	public enum OperationType
+	{
+		Deposit,
+		Withdraw,
+		Transfer
+	}
 
 	private CustomerRepository customerRepository;
 	private AccountRepository accountRepository;
@@ -23,15 +32,15 @@ public class OperationService {
 		this.accountRepository = accountRepository;
 		
 	}
-
-	public Account deposit(DepositDTO depositDTO) {
-		
-		Optional<Customer> customer = customerRepository.findById(depositDTO.getCustomer_id());
+	
+	private Account AccountOperation(OperationType operationType, AbstractOperationDTO operationDto)
+	{
+		Optional<Customer> customer = customerRepository.findById(operationDto.getCustomer_id());
 		if(customer.isPresent())
 		{
 			Account selectAccount = null;
 			for (Account account : customer.get().getAccounts()) {
-				if(account.getId() == depositDTO.getAccount_id())
+				if(account.getId() == operationDto.getAccount_id())
 				{
 					selectAccount = account;
 					break;
@@ -42,13 +51,27 @@ public class OperationService {
 			{
 				throw new ResourceNotFoundException("Customer", "Client", "Conta não associado ao cliente");	
 			}
-			selectAccount.setBalance(selectAccount.getBalance() + depositDTO.getValue());
+			if(operationType == OperationType.Deposit)
+			{
+				selectAccount.setBalance(selectAccount.getBalance() + operationDto.getValue());
+			}else if(operationType == OperationType.Withdraw)
+			{
+				selectAccount.setBalance(selectAccount.getBalance() - operationDto.getValue());
+			}
 			return accountRepository.save(selectAccount);
 		}else
 		{
-			throw new ResourceNotFoundException("Customer", "Client", "O cliente com id:"+depositDTO.getCustomer_id()+" não encontrado");
+			throw new ResourceNotFoundException("Customer", "Client", "O cliente com id:"+operationDto.getCustomer_id()+" não encontrado");
 		}
-		
 	}
 
+	public Account deposit(DepositDTO depositDTO) {
+		return AccountOperation(OperationType.Deposit, depositDTO);
+	}
+
+	public Account withdraw(WithdrawDTO withdrawDTO) {
+		return AccountOperation(OperationType.Withdraw, withdrawDTO);
+	}
+	
 }
+
