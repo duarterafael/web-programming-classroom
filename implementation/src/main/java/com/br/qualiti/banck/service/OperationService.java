@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.br.qualiti.banck.dto.AbstractOperationDTO;
 import com.br.qualiti.banck.dto.DepositDTO;
+import com.br.qualiti.banck.dto.TransferDTO;
 import com.br.qualiti.banck.dto.WithdrawDTO;
 import com.br.qualiti.banck.exception.ResourceNotFoundException;
 import com.br.qualiti.banck.model.Account;
@@ -72,6 +73,14 @@ public class OperationService {
 	public Account withdraw(WithdrawDTO withdrawDTO) {
 		return AccountOperation(OperationType.Withdraw, withdrawDTO);
 	}
+	
+	
+	public Account transfer(TransferDTO transferDTO) {
+		Account sourceAccount = withdraw(new WithdrawDTO(transferDTO.getSource_customer_id(), transferDTO.getSource_account_id(), transferDTO.getValue()));
+		Account targetAccount = deposit(new DepositDTO(transferDTO.getTarger_customer_id(), transferDTO.getTarger_account_id(), transferDTO.getValue()));
+		return 	sourceAccount;	
+	}
+	
 	
 }
 
