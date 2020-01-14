@@ -1,8 +1,21 @@
 package com.br.qualiti.banck.controller;
 
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.br.qualiti.banck.exception.ResourceNotFoundException;
+import com.br.qualiti.banck.model.Customer;
+import com.br.qualiti.banck.service.CustomerService;
 
 /*
  * O Controller é a classe responsável por expor cada URI que estará disponível na API.
@@ -18,13 +31,6 @@ import org.springframework.http.ResponseEntity;
  * (as IDEs mais modernas inclusive apresentam um alerta quando fazemos o uso do @Autowired).
  * 
  */
-import org.springframework.web.bind.annotation.*;
-
-import com.br.qualiti.banck.exception.ResourceNotFoundException;
-import com.br.qualiti.banck.model.Customer;
-import com.br.qualiti.banck.service.CustomerService;
-
-import java.util.List;
 
 @RestController()
 @RequestMapping("/api/v1/customers")
@@ -34,6 +40,21 @@ public class CustomerController {
 
 	CustomerController(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+	
+	/*
+	 * O método create chama o método create da camada de serviço que por sua vez
+	 * chama o save da interface JpaRepository. Após criar o registro na tabela,
+	 * retorna o contato com o atributo id populado e o registro é retornado no
+	 * corpo de resposta. A anotação @RequestBody indica que o parâmetro contact
+	 * será vinculado do corpo da requisição. Isso significa que o método espera o
+	 * seguinte conteúdo do corpo da requisição (em formato JSON) Com o uso dessa
+	 * anotação, o Spring é inteligente e consegue ler e transformar o conteúdo em
+	 * uma instância da classe Customer.
+	 */
+	@PostMapping
+	public Customer create(@RequestBody Customer customer) {
+		return customerService.create(customer);
 	}
 
 	/*
@@ -63,25 +84,16 @@ public class CustomerController {
 	 */
 	@GetMapping(path = { "/{id}" })
 	public ResponseEntity findById(@PathVariable long id) {
-		return customerService.findById(id)
-				.map(record -> ResponseEntity.ok().body(record))
-				.orElse(ResponseEntity.notFound().build());
+		Optional<Customer> customer = customerService.findById(id);
+		if(customer.isPresent()) {
+			return ResponseEntity.ok().body(customer);
+		}else
+		{
+			return ResponseEntity.notFound().build();
+		}
 	}
 
-	/*
-	 * O método create chama o método create da camada de serviço que por sua vez
-	 * chama o save da interface JpaRepository. Após criar o registro na tabela,
-	 * retorna o contato com o atributo id populado e o registro é retornado no
-	 * corpo de resposta. A anotação @RequestBody indica que o parâmetro contact
-	 * será vinculado do corpo da requisição. Isso significa que o método espera o
-	 * seguinte conteúdo do corpo da requisição (em formato JSON) Com o uso dessa
-	 * anotação, o Spring é inteligente e consegue ler e transformar o conteúdo em
-	 * uma instância da classe Customer.
-	 */
-	@PostMapping
-	public Customer create(@RequestBody Customer customer) {
-		return customerService.create(customer);
-	}
+
 	
 	/*
 	 * Para atualizar um registro, é necessário informar seu ID no caminho da URL (similar ao processo de obter um registro específico). 

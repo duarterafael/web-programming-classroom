@@ -4,19 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
-/*
- * Uma classe Service que evoca o repositório e contém a lógica de negócio do projeto para deixar o código da classe controller enxuto e mais limpo, 
- * é necessário declarar o repositório como atributo.
- */
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.br.qualiti.banck.exception.ResourceNotFoundException;
 import com.br.qualiti.banck.model.Customer;
 import com.br.qualiti.banck.repository.CustomerRepository;
+
+/*
+ * Uma classe Service que evoca o repositório e contém a lógica de negócio do projeto para deixar o código da classe controller enxuto e mais 
+ * limpo,  é necessário declarar o repositório como atributo.
+ */
 
 @Service
 public class CustomerService {
@@ -25,6 +24,10 @@ public class CustomerService {
 
 	CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
+	}
+	
+	public Customer create(Customer customer) {
+		return customerRepository.save(customer);
 	}
 
 	public List findAll() {
@@ -46,9 +49,7 @@ public class CustomerService {
 		return customerRepository.findById(id);
 	}
 
-	public Customer create(Customer customer) {
-		return customerRepository.save(customer);
-	}
+	
 	
 	/*
 	 * Inicialmente é necessário encontrar o registro a ser atualizado na base de dados. 
@@ -66,7 +67,7 @@ public class CustomerService {
 	 * Para esse caso, pode-se criar uma classe com todos os atributos da classe Customer, 
 	 * exceto o atributo id (ou uma classe com atributos que facilite a manipulação dos dados por um front-end por exemplo).
 	 */
-	public Customer update(@PathVariable("id") long id, @RequestBody Customer customer) {
+	public Customer update(long id, Customer customer) {
 		Optional<Customer> currentCustomer = customerRepository.findById(id);
 		if(currentCustomer.isPresent())
 		{
