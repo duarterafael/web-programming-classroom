@@ -17,4 +17,6 @@ import com.br.qualiti.banck.model.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	List<Customer> findByNameContaining(String name);
+	List<Customer> findByCPFContaining(String CPF);
+	
 }
