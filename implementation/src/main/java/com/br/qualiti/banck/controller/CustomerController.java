@@ -121,6 +121,7 @@ public class CustomerController {
 	public ResponseEntity delete(@PathVariable long id) {
 			customerService.delete(id);
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			
 	}
 	
 	/*
