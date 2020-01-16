@@ -1,13 +1,13 @@
-Delete from `db_banck_qualiti`.`customer`;
-Delete from  `db_banck_qualiti`.`account`;
+Delete from customer;
+Delete from  account;
 
-INSERT INTO `db_banck_qualiti`.`customer`
+INSERT INTO customer
 (`cpf`, `name`)
 VALUES
-("07698187487" , "Rafael Batista Duarte");
+("07698187417" , "Rafael123 Batista Duarte");
 
 
-INSERT INTO `db_banck_qualiti`.`account`
+INSERT INTO account
 (`balance`, `number`, `customer_id`)
 VALUES
-(0,"123", (select id from `db_banck_qualiti`.`customer` where name = "Rafael Batista Duarte"));
+(0,"123", (select id from `db_banck_qualiti`.`customer` where name = "Rafael123 Batista Duarte"));
