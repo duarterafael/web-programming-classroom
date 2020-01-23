@@ -30,20 +30,6 @@ public class AccountService {
 		return accountRepository.save(account);
 	}
 	
-//	public Customer update(@PathVariable("id") long id, @RequestBody Account account) {
-//		Optional<Account> currentAccount = accountRepository.findById(id);
-//		if(currentAccount.isPresent())
-//		{
-//			currentAccount.get().setName(customer.getName());
-//			currentCustomer.get().setCPF(customer.getCPF());
-//			currentCustomer.get().getAccounts().addAll(customer.getAccounts());
-//			return customerRepository.save(currentCustomer.get());
-//		}else
-//		{
-//			throw new ResourceNotFoundException("Account", "Account", "A conta com id:"+id+" não encontrado");
-//		}
-//		
-//	}
 
 	public void delete(long id) {
 		try {
