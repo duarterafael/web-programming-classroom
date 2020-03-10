@@ -33,8 +33,8 @@ const postBtn = document.getElementById("postBtn");
 postBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("nameInput");
-  const cpf = document.getElementById("cpfInput");
+  const name = document.getElementById("nameInputPost");
+  const cpf = document.getElementById("cpfInputPost");
 
   const inputs = {
     name: name.value,
@@ -52,6 +52,42 @@ postBtn.addEventListener("click", (e) => {
     },
     error: function(result) {
       document.getElementById("postMsg").innerHTML = "erro!";
+    }
+  })
+})
+
+
+// PUT
+
+const putForm = document.getElementById("putForm");
+
+const putBtn = document.getElementById("putBtn");
+
+putBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("idInputPut");
+  const name = document.getElementById("nameInputPut");
+  const cpf = document.getElementById("cpfInputPut");
+
+  const inputs = {
+    name: name.value,
+    cpf: cpf.value
+  }
+
+  $.ajax({
+    type: 'PUT',
+    url: '/api/v1/customers/' + id.value,
+    data: JSON.stringify(inputs),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success: function(result) {
+      console.log(result)
+      document.getElementById("putMsg").innerHTML = "ok!";
+    },
+    error: function(result) {
+      console.log(result)
+      document.getElementById("putMsg").innerHTML = "erro!";
     }
   })
 })

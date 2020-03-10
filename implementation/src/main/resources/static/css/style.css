@@ -1,4 +1,6 @@
 #p-tag,
-#ul-tag {
+#ul-tag,
+#postForm,
+#putForm {
   margin-top: 80px 0;
 }
