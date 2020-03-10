@@ -40,6 +40,17 @@
 
     <p id="putMsg"></p>
 
+    <form id="deleteForm" action="/api/v1/customers" method="post">
+      <h2>DELETE - cliente</h2>
+      <label for="id">Id:</label>
+      <input id="idInputDelete" type="text" name="id" required/>
+      <button id="deleteBtn" type="submit">
+        Deletar cliente
+      </button>
+    </form>
+
+    <p id="deleteMsg"></p>
+
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/script.js"></script>
   </body>

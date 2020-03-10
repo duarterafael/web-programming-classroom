@@ -82,12 +82,34 @@ putBtn.addEventListener("click", (e) => {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(result) {
-      console.log(result)
       document.getElementById("putMsg").innerHTML = "ok!";
     },
     error: function(result) {
-      console.log(result)
       document.getElementById("putMsg").innerHTML = "erro!";
+    }
+  })
+})
+
+
+// DELETE
+
+const deleteForm = document.getElementById("deleteForm");
+
+const deleteBtn = document.getElementById("deleteBtn");
+
+deleteBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("idInputDelete");
+
+  $.ajax({
+    type: 'DELETE',
+    url: '/api/v1/customers/' + id.value,
+    success: function(result) {
+      document.getElementById("deleteMsg").innerHTML = "ok!";
+    },
+    error: function(result) {
+      document.getElementById("deleteMsg").innerHTML = "erro!";
     }
   })
 })
