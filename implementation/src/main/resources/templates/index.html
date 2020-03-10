@@ -6,12 +6,24 @@
     <link href="/css/style.css" rel="stylesheet">
   </head>
   <body>
-
     <h1>Aula de JavaScript</h1>
 
     <p id="p-tag"></p>
 
     <ul id="ul-tag"></ul>
+
+    <form id="postForm" action="/api/v1/customers" method="post">
+      <h2>Add cliente</h2>
+      <label for="name">Nome:</label>
+      <input id="nameInput" type="text" name="name" required/>
+      <label for="cpf">CPF:</label>
+      <input id="cpfInput" type="text" name="cpf" required/>
+      <button id="postBtn" type="submit">
+        Adicionar cliente
+      </button>
+    </form>
+
+    <p id="postMsg"></p>
 
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/script.js"></script>
