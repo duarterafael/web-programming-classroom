@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AAAAA</title>
+    <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <p id="test1">This is a paragraph.</p>
+    <script>
+        var settings = {
+            "url": "http://localhost:8080/api/v1/customers",
+            "method": "GET",
+            "timeout": 0,
+        };
+
+        $.ajax(settings).done(function(response) {
+            $("#test1").text(JSON.stringify(response));
+            console.log(response);
+        });
+    </script>
+
+</html>
