@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Aula de JavaScript</title>
+    <link href="/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Aula de JavaScript</h1>
+
+    <p id="p-tag"></p>
+
+    <ul id="ul-tag"></ul>
+
+    <form id="postForm" action="/api/v1/customers" method="post">
+      <h2>POST - cliente</h2>
+      <label for="name">Nome:</label>
+      <input id="nameInputPost" type="text" name="name" required/>
+      <label for="cpf">CPF:</label>
+      <input id="cpfInputPost" type="text" name="cpf" required/>
+      <button id="postBtn" type="submit">
+        Adicionar cliente
+      </button>
+    </form>
+
+    <p id="postMsg"></p>
+
+    <form id="putForm" action="/api/v1/customers" method="post">
+      <h2>PUT - cliente</h2>
+      <label for="id">Id:</label>
+      <input id="idInputPut" type="text" name="id" required/>
+      <label for="name">Nome:</label>
+      <input id="nameInputPut" type="text" name="name" required/>
+      <label for="cpf">CPF:</label>
+      <input id="cpfInputPut" type="text" name="cpf" required/>
+      <button id="putBtn" type="submit">
+        Editar cliente
+      </button>
+    </form>
+
+    <p id="putMsg"></p>
+
+    <form id="deleteForm" action="/api/v1/customers" method="post">
+      <h2>DELETE - cliente</h2>
+      <label for="id">Id:</label>
+      <input id="idInputDelete" type="text" name="id" required/>
+      <button id="deleteBtn" type="submit">
+        Deletar cliente
+      </button>
+    </form>
+
+    <p id="deleteMsg"></p>
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
