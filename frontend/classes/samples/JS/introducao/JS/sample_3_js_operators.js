@@ -9,3 +9,9 @@ console.log(numeroComCasasDecimais);
 console.log(texto);
 console.log(outroTexto);
 console.log(valorBooleano);
+
+var contador = 0;
+while ( contador < 100) {
+    document.writeln('Bom Dia<br>') ;
+    contador ++;
+}
