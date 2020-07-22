@@ -1,0 +1,34 @@
+version: '2.1'
+services:
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./data/mysqldb:/mnt
+  # http://localhost:8082/ use mysqldb como server
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+  # http://localhost:3000/ user o seu ip como hostname
+  mysql-workbench:
+    image: linuxserver/mysql-workbench
+    container_name: mysql-workbench
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /path/to/config:/config
+    ports:
+      - 3000:3000
+    cap_add:
+      - IPC_LOCK
+    restart: unless-stopped
